@@ -1,6 +1,6 @@
 class Note(var id: Int = 0, val ownerId: Int, var title: String, var text: String, var comments: Int = 0)
 
-class Comment(val noteId: Int, val ownerId: Int, val message: String, val replyTo: Int)
+class Comment(var noteId: Int, val ownerId: Int, val message: String, val replyTo: Int)
 
 fun main() {
 
@@ -17,5 +17,6 @@ fun main() {
     println(noteService.delete(3))
     println(noteService.edit(0,"Измененная заметка 1", "Текст измененной заметки 1"))
     println(note.title)
-    println(noteService.getById(1))
+    //println(noteService.getById(0))
+    println(noteService.get())
 }

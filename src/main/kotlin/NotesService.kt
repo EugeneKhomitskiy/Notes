@@ -3,11 +3,12 @@ interface CrudService<T> {
     fun delete(id: Int): String
     fun edit(id: Int, title: String, text: String): String
     fun getById(id: Int): String
+    fun get()
 }
 
 class NotesService : CrudService<Note> {
-    var notes: MutableList<Note> = mutableListOf()
-    var comments: MutableList<Comment> = mutableListOf()
+    private var notes: MutableList<Note> = mutableListOf()
+    private var comments: MutableList<Comment> = mutableListOf()
 
     override fun add(element: Note): Int {
         element.id = notes.size
@@ -41,4 +42,17 @@ class NotesService : CrudService<Note> {
             "Заметка не найдена"
         }
     }
+
+    override fun get() {
+        for ((index) in notes.withIndex()) {
+            println(notes[index])
+        }
+    }
+
+    fun createComment() {}
+    fun deleteComment() {}
+    fun editComment() {}
+    fun getComments() {}
+    fun restoreComments() {}
+
 }
