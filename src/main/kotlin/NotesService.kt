@@ -6,8 +6,8 @@ interface CrudService<T> {
     fun get()
 }
 
-class NotesService : CrudService<Note> {
-    private var notes: MutableList<Note> = mutableListOf()
+class NotesService: CrudService<Note> {
+    var notes: MutableList<Note> = mutableListOf()
     private var comments: MutableList<Comment> = mutableListOf()
 
     override fun add(element: Note): Int {
@@ -49,10 +49,33 @@ class NotesService : CrudService<Note> {
         }
     }
 
-    fun createComment() {}
-    fun deleteComment() {}
-    fun editComment() {}
-    fun getComments() {}
-    fun restoreComments() {}
+    fun createComment(element: Comment): Int {
+        element.id = comments.size
+        comments.add(element)
+        notes[element.noteId].comments ++
+        return comments.last().id
+    }
 
+    fun deleteComment(element: Comment): String {
+        if (notes.isNotEmpty()) element.del = true
+        return "Комментарий удалён"
+    }
+
+    fun editComment(element: Comment, message: String): String {
+        return if (!element.del && notes.isNotEmpty()) {
+            comments[element.id].message = message
+            comments[element.id].toString()
+        } else "Комментарий не существует"
+    }
+
+    fun getComments() {
+        for ((index) in comments.withIndex()) {
+            if (!comments[index].del) println(comments[index])
+        }
+    }
+
+    fun restoreComments(element: Comment): String {
+        if (notes.isNotEmpty()) element.del = false
+        return "Комметарий восстановлен"
+    }
 }

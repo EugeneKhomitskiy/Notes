@@ -1,6 +1,19 @@
-class Note(var id: Int = 0, val ownerId: Int, var title: String, var text: String, var comments: Int = 0)
+class Note(
+    var id: Int = 0,
+    val ownerId: Int,
+    var title: String,
+    var text: String,
+    var comments: Int = 0
+)
 
-class Comment(var noteId: Int, val ownerId: Int, val message: String, val replyTo: Int)
+class Comment(
+    var id: Int = 0,
+    var noteId: Int,
+    val ownerId: Int,
+    var message: String,
+    val replyTo: Int,
+    var del: Boolean = false
+)
 
 fun main() {
 
@@ -15,8 +28,26 @@ fun main() {
     println("id = ${noteService.add(note2)}")
     println("${note2.title} ${note2.text}")
     println(noteService.delete(3))
-    println(noteService.edit(0,"Измененная заметка 1", "Текст измененной заметки 1"))
+    println(noteService.edit(0, "Измененная заметка 1", "Текст измененной заметки 1"))
     println(note.title)
     //println(noteService.getById(0))
     println(noteService.get())
+
+    val comment = Comment(noteId = 0, ownerId = 0, message = "Comment", replyTo = 0)
+    println(noteService.createComment(comment))
+    val comment1 = Comment(noteId = 0, ownerId = 0, message = "Comment1", replyTo = 0)
+    println(noteService.createComment(comment1))
+    val comment2 = Comment(noteId = 0, ownerId = 0, message = "Comment2", replyTo = 0)
+    println(noteService.createComment(comment2))
+
+    println(noteService.deleteComment(comment))
+    println(comment.del)
+    println(comment.message)
+    println(noteService.editComment(comment, "Измененный коммент"))
+
+    println(noteService.getComments())
+
+    println(noteService.restoreComments(comment))
+
+    println(noteService.getComments())
 }
